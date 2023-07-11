@@ -1,0 +1,18 @@
+data_source reporting_api__marts:
+  type: snowflake
+  connection:
+    username: ${SNOWFLAKE_USER}
+    password: ${SNOWFLAKE_PASS}
+    account: so16160.eu-west-1
+    database: reporting_api_dwh
+    warehouse: compute_wh
+    role: analyst
+    session_parameters:
+      QUERY_TAG: soda-queries
+      QUOTED_IDENTIFIERS_IGNORE_CASE: false
+  schema: api_etl_dev_marts
+
+soda_cloud:
+  host: dev.sodadata.io
+  api_key_id: ${CLOUD_API_KEY_ID}
+  api_key_secret: ${CLOUD_API_KEY_SECRET}
