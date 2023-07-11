@@ -6,7 +6,7 @@ data_source reporting_api__marts:
     account: so16160.eu-west-1
     database: reporting_api_dwh
     warehouse: compute_wh
-    role: analyst
+    role: reporting_api_combined
     session_parameters:
       QUERY_TAG: soda-queries
       QUOTED_IDENTIFIERS_IGNORE_CASE: false
