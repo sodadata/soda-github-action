@@ -9,7 +9,7 @@ on:
 
 jobs:
   soda_scan_test:
-    runs-on: ubuntu-latest
+    runs-on: self-hosted-win
     name: Test ${{ matrix.name }}
     env:
       CLOUD_API_KEY_ID: ${{ secrets.CLOUD_API_KEY_ID }}
