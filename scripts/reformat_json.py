@@ -34,6 +34,10 @@ try:
 
     os.environ["SODA_SCAN_REFERENCE"] = data.get("scanReference") or ""
     os.environ["SODA_CLOUD_URL"] = data.get("cloudUrl") or ""
+    print("s1:" + os.environ["SODA_SCAN_REFERENCE"])
+    print("c1: " + os.environ["SODA_CLOUD_URL"])
+    print("s2:" + data.get("scanReference"))
+    print("c2:" + data.get("cloudUrl"))
 
 except FileNotFoundError:
     sys.exit(1)
