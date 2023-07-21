@@ -39,6 +39,7 @@ runs:
     - name: Expand environment variables
       id: expand_envs
       env:
+          BRANCH_NAME: ${{ github.event.pull_request.head.label }}
           PR_TITLE: ${{ github.event.pull_request.title }}
           PR_URL: ${{ github.event.pull_request.issue_url }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
