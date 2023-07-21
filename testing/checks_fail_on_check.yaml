@@ -1,2 +1,18 @@
 checks for check_results:
-  - row_count < 0
+  - row_count > 0
+  - avg(metric_value) between 100 and 300
+  - duplicate_percent(level) < 32%
+  - row_count > 0
+  - missing_count(level) = 0
+  - invalid_count(owner_email) = 0:
+      valid format: email
+
+checks for checks:
+  - row_count > 0
+  - freshness(updated_at) < 3d
+
+checks for datasets:
+  - row_count > 0
+
+checks for incidents:
+  - row_count > 0
