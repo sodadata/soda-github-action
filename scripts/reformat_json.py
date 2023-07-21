@@ -33,7 +33,7 @@ try:
         json.dump(table_data, f)
 
     # Construct the URL to the scan results and return it
-    print("https://" + data.get("cloudUrl") + "/scans/" + data.get("scanReference"))
+    print(data.get("cloudUrl") + "/scans/" + data.get("scanReference"))
 
     sys.exit(0)
 
