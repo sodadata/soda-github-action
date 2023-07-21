@@ -35,9 +35,10 @@ runs:
       shell: bash
 
     - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJSON(github) }}
-        run: echo "$GITHUB_CONTEXT"
+      shell: bash
+      env:
+        GITHUB_CONTEXT: ${{ toJSON(github) }}
+      run: echo "$GITHUB_CONTEXT"
 
     # 2. Need to expand the environment variables to pass to the docker run command
     # as these variables can be configured in the workflow file and contain secrets etc.
