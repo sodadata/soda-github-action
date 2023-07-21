@@ -3,7 +3,7 @@ import os
 
 data = {
     "repository": os.getenv("GITHUB_REPOSITORY"),
-    "branch": os.getenv("GITHUB_REF_NAME"),
+    "branch": os.getenv("BRANCH_NAME"),
     "author": os.getenv("GITHUB_ACTOR"),
     "prTitle": os.getenv("PR_TITLE"),
     "prNumber": os.getenv("PR_NUMBER"),
