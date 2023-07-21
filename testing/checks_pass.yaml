@@ -6,11 +6,11 @@ checks for check_results:
   - group by:
       group_limit: 10
       query: |
-        SELECT level, AVG(metric_value) as average_metric_value
+        SELECT LEVEL, AVG(metric_value) as average_metric_value
         FROM check_results
-        GROUP BY level
+        GROUP BY LEVEL
       fields:
-        - level
+        - LEVEL
       checks:
         - average_metric_value:
             fail: when > 100000
