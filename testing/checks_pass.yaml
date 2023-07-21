@@ -13,7 +13,7 @@ checks for check_results:
         - LEVEL
       checks:
         - AVERAGE_METRIC_VALUE:
-            fail: when > 100000
+            fail: when < 10
             name: Average value is too high
 
 checks for checks:
