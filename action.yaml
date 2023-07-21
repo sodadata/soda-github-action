@@ -38,6 +38,10 @@ runs:
     # as these variables can be configured in the workflow file and contain secrets etc.
     - name: Expand environment variables
       id: expand_envs
+      env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.issue_url }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
       run: |
         env > .env_file
       shell: bash
@@ -45,10 +49,6 @@ runs:
     # 3. Run built image to trigger the actual scan
     - name: Run your Docker Action
       id: soda_scan
-      env:
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_URL: ${{ github.event.pull_request.url }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
       run: |
         docker run \
         --workdir ${GITHUB_ACTION_PATH} \
