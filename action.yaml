@@ -45,6 +45,8 @@ runs:
     # 3. Run built image to trigger the actual scan
     - name: Run your Docker Action
       id: soda_scan
+      env:
+          PR_TITLE: ${{ github.event.pull_request.title }}
       run: |
         docker run \
         --workdir ${GITHUB_ACTION_PATH} \

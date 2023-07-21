@@ -1,5 +1,4 @@
 import json
-import os
 import sys
 
 json_file_name = sys.argv[1]
