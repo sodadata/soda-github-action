@@ -34,12 +34,6 @@ runs:
         --build-arg="SODA_LIBRARY_VERSION=${{ inputs.soda_library_version }}"
       shell: bash
 
-    - name: Dump GitHub context
-      shell: bash
-      env:
-        GITHUB_CONTEXT: ${{ toJSON(github) }}
-      run: echo "$GITHUB_CONTEXT"
-
     # 2. Need to expand the environment variables to pass to the docker run command
     # as these variables can be configured in the workflow file and contain secrets etc.
     - name: Expand environment variables
@@ -47,7 +41,7 @@ runs:
       env:
           BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
           PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_URL: ${{ github.event.pull_request.issue_url }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
       run: |
         env > .env_file
