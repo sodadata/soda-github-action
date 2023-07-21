@@ -38,6 +38,11 @@ runs:
     # as these variables can be configured in the workflow file and contain secrets etc.
     - name: Expand environment variables
       id: expand_envs
+      env:
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
       run: |
         env > .env_file
       shell: bash
@@ -129,7 +134,7 @@ runs:
 
           ${{ steps.table.outputs.table }}
 
-          View the full scan on -> [Soda Cloud](${{ env.SODA_CLOUD_URL }}/scan/${{ env.SCAN_REFERENCE }})
+          View the full scan on -> [Soda Cloud](${{ env.SCAN_CLOUD_LINK }})
 
     - name: Comment PR on failure with results
       uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
@@ -142,7 +147,7 @@ runs:
 
           ${{ steps.table.outputs.table }}
 
-          View the full scan on -> [Soda Cloud](${{ env.SODA_CLOUD_URL }}/scan/${{ env.SCAN_REFERENCE }})
+          View the full scan on -> [Soda Cloud](${{ env.SCAN_CLOUD_LINK }})
 
     - name: Comment PR on fatal failure
       uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3

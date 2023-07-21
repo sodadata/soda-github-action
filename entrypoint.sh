@@ -12,11 +12,12 @@ soda scan \
 
 exit_status=$?
 
-python3 /tmp/action_path/scripts/reformat_json.py soda_scan_results_raw.json
+scan_cloud_link=$(python3 /tmp/action_path/scripts/reformat_json.py soda_scan_results_raw.json)
 
 {
   echo "SCAN_RESULTS=$(cat soda_scan_results.json)"
   echo "SCAN_EXIT_CODE=$exit_status"
+  echo "SCAN_CLOUD_LINK=$scan_cloud_link"
 } >> "$GITHUB_ENV"
 
 exit $exit_status

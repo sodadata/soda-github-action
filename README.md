@@ -39,7 +39,7 @@ permissions:
 as the action posts a comment with the scan results to the PR.
 Note the comment is only created for workflows run by `pull_request` event.
 
-### Self-hosted runners
+### Self-hosted runners caveats
 When running this action on self-hosted runners, there are some additional caveats:
 
 - Windows runners are not supported. This also means using official Windows-based images like `windows-latest` is not allowed.

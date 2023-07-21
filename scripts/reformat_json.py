@@ -1,5 +1,4 @@
 import json
-import os
 import sys
 
 json_file_name = sys.argv[1]
@@ -32,8 +31,10 @@ try:
     with open("soda_scan_results.json", "w") as f:
         json.dump(table_data, f)
 
-    os.environ["SODA_SCAN_REFERENCE"] = data.get("scanReference") or ""
-    os.environ["SODA_CLOUD_URL"] = data.get("cloudUrl") or ""
+    # Construct the URL to the scan results and return it
+    print(data.get("cloudUrl") + "/scans/" + data.get("scanReference"))
+
+    sys.exit(0)
 
 except FileNotFoundError:
     sys.exit(1)
