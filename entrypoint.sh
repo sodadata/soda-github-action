@@ -14,6 +14,9 @@ exit_status=$?
 
 python3 /tmp/action_path/scripts/reformat_json.py soda_scan_results_raw.json
 
+echo $SODA_SCAN_REFERENCE
+echo $SODA_CLOUD_URL
+
 {
   echo "SCAN_RESULTS=$(cat soda_scan_results.json)"
   echo "SCAN_EXIT_CODE=$exit_status"
