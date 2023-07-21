@@ -47,6 +47,8 @@ runs:
       id: soda_scan
       env:
           PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.url }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
       run: |
         docker run \
         --workdir ${GITHUB_ACTION_PATH} \
