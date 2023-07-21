@@ -32,12 +32,10 @@ try:
     with open("soda_scan_results.json", "w") as f:
         json.dump(table_data, f)
 
-    os.environ["SODA_SCAN_REFERENCE"] = data.get("scanReference") or ""
-    os.environ["SODA_CLOUD_URL"] = data.get("cloudUrl") or ""
-    print("s1:" + os.environ["SODA_SCAN_REFERENCE"])
-    print("c1: " + os.environ["SODA_CLOUD_URL"])
-    print("s2:" + data.get("scanReference"))
-    print("c2:" + data.get("cloudUrl"))
+    # Construct the URL to the scan results and return it
+    print("https://" + data.get("cloudUrl") + "/scans/" + data.get("scanReference"))
+
+    sys.exit(0)
 
 except FileNotFoundError:
     sys.exit(1)

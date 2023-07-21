@@ -129,7 +129,7 @@ runs:
 
           ${{ steps.table.outputs.table }}
 
-          View the full scan on -> [Soda Cloud](${{ env.SODA_CLOUD_URL }}/scan/${{ env.SCAN_REFERENCE }})
+          View the full scan on -> [Soda Cloud](${{ env.SCAN_CLOUD_LINK }})
 
     - name: Comment PR on failure with results
       uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
@@ -142,7 +142,7 @@ runs:
 
           ${{ steps.table.outputs.table }}
 
-          View the full scan on -> [Soda Cloud](${{ env.SODA_CLOUD_URL }}/scan/${{ env.SCAN_REFERENCE }})
+          View the full scan on -> [Soda Cloud](${{ env.SCAN_CLOUD_LINK }})
 
     - name: Comment PR on fatal failure
       uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
