@@ -3,6 +3,18 @@ checks for check_results:
   - duplicate_percent(level) < 32%
   - row_count > 0
   - missing_count(level) = 0
+  - group by:
+      group_limit: 10
+      query: |
+        SELECT level, AVG(metric_value) as average_metric_value
+        FROM check_results
+        GROUP BY level
+      fields:
+        - level
+      checks:
+        - average_metric_value:
+            fail: when > 100000
+            name: Average value is too high
 
 checks for checks:
   - row_count > 0
