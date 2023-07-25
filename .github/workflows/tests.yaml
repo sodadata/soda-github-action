@@ -12,8 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     name: Test ${{ matrix.name }}
     env:
-      CLOUD_API_KEY_ID: ${{ secrets.CLOUD_API_KEY_ID }}
-      CLOUD_API_KEY_SECRET: ${{ secrets.CLOUD_API_KEY_SECRET }}
+      CLOUD_API_KEY_ID: ${{ secrets.SANDBOX_API_KEY_ID }}
+      CLOUD_API_KEY_SECRET: ${{ secrets.SANDBOX_API_KEY_SECRET }}
       SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
       SNOWFLAKE_PASS: ${{ secrets.SNOWFLAKE_PASS }}
     strategy:

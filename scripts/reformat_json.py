@@ -31,6 +31,9 @@ try:
     with open("soda_scan_results.json", "w") as f:
         json.dump(table_data, f)
 
+    if data.get("cloudUrl") is None or data.get("scanReference") is None:
+        sys.exit(1)
+        
     # Construct the URL to the scan results and return it
     print(data.get("cloudUrl") + "/scans/" + data.get("scanReference"))
 
