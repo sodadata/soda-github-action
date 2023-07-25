@@ -14,7 +14,11 @@ data = {
 }
 
 # Generate a unique ID for this PR across whole Github
-data["prIdentifier"] = str(uuid.uuid5(namespace, data["repositoryName"] + data["branchName"] + data["prNumber"]))
+data["prIdentifier"] = str(
+    uuid.uuid5(
+        namespace, data["repositoryName"] + data["branchName"] + data["prNumber"]
+    )
+)
 
 with open("soda_scan_ci_info.json", "w") as f:
     json.dump(data, f)

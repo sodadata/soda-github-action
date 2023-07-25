@@ -13,6 +13,6 @@ data_source reporting_api__marts:
   schema: api_etl_dev_marts
 
 soda_cloud:
-  host: sandbox.sodadata.io
+  host: dev.sodadata.io
   api_key_id: ${CLOUD_API_KEY_ID}
   api_key_secret: ${CLOUD_API_KEY_SECRET}
