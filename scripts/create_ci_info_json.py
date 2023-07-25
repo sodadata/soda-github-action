@@ -1,6 +1,7 @@
 import json
 import os
 import uuid
+import sys
 
 namespace = uuid.NAMESPACE_URL
 
@@ -14,6 +15,13 @@ data = {
 }
 
 # Generate a unique ID for this PR across whole Github
+if (
+    data["repositoryName"] is None
+    or data["branchName"] is None
+    or data["prNumber"] is None
+):
+    sys.exit(1)
+
 data["prIdentifier"] = str(
     uuid.uuid5(
         namespace, data["repositoryName"] + data["branchName"] + data["prNumber"]
