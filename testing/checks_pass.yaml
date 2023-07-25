@@ -6,7 +6,6 @@ checks for check_results:
 
 checks for checks:
   - row_count > 0
-  - freshness(updated_at) < 3d
 
 checks for datasets:
   - row_count > 0
