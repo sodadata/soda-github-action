@@ -13,6 +13,8 @@ soda scan \
 
 exit_status=$?
 
+cat soda_scan_results_raw.json
+
 scan_cloud_link=$(python3 /tmp/action_path/scripts/reformat_json.py soda_scan_results_raw.json)
 
 {
