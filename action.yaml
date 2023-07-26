@@ -114,7 +114,10 @@ runs:
       continue-on-error: true
 
     - name: Scan results link
-      run: echo "::notice title={View the full scan results}::{env.SCAN_CLOUD_LINK}"
+      run: |
+        echo "###########"
+        echo "\034[31;1;4mView the full scan results -> ${{ env.SCAN_CLOUD_LINK }}\033[0m"
+        echo "###########"
       shell: bash
 
     # 4. The soda-library scan results are converted to a markdown table
@@ -131,7 +134,6 @@ runs:
       uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
       if: steps.soda_scan.outcome == 'success'
       with:
-        comment_tag: cicd_soda_scan
         message: |
           🟢 Soda scan completed successfully with the following results:
 
@@ -143,7 +145,6 @@ runs:
       uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
       if: steps.soda_scan.outcome != 'success' && env.SCAN_RESULTS != ''
       with:
-        comment_tag: cicd_soda_scan
         message: |
           🔴 Soda scan completed with the following results:
 
@@ -155,7 +156,6 @@ runs:
       uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
       if: steps.soda_scan.outcome != 'success' && env.SCAN_RESULTS == ''
       with:
-        comment_tag: cicd_soda_scan
         message: |
           🔴 Soda scan failed. Check logs for more details.
 
