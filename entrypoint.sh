@@ -2,19 +2,17 @@
 
 python3 /tmp/action_path/scripts/create_ci_info_json.py
 
-echo -e "\e[1;31m colored text"
 echo $3
+echo $4
 soda scan \
   -d "$1" \
   -c "/tmp/workspace/$2" \
-  /tmp/workspace/$3 \
+  "/tmp/workspace/$3" \
   -srf soda_scan_results_raw.json \
   --scan-type cicd \
   -cif soda_scan_ci_info.json
 
 exit_status=$?
-
-echo -e "\033[0m "
 
 scan_cloud_link=$(python3 /tmp/action_path/scripts/reformat_json.py soda_scan_results_raw.json)
 
