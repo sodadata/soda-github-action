@@ -113,6 +113,7 @@ runs:
       shell: bash
 
     - name: Scan results link
+      if: env.SCAN_EXIT_CODE == 0 || env.SCAN_EXIT_CODE == 2
       run: |
         echo -e "\033[36;1m-----------------------------\\033[0m"
         echo -e "\033[36;1m View the full scan results -> \033[0m ${{ env.SCAN_CLOUD_LINK }}"
@@ -159,9 +160,15 @@ runs:
           🔴 Soda scan failed. Check logs for more details.
 
 
-    # 6. Post additional message to make it clear scan failed.
+    # 6. Post additional message to make it clear scan failed or not
     - name: Fail Job if Soda Scan Failed
       shell: bash
       if: env.SCAN_EXIT_CODE != 0
       run: |
         echo -e "\033[31;1;4mSoda Scan failed\033[0m" && exit ${{ env.SCAN_EXIT_CODE }}
+
+    - name: Fail Job if Soda Scan Succeeded
+      shell: bash
+      if: env.SCAN_EXIT_CODE == 0
+      run: |
+        echo -e "\32[31;1;4mSoda Scan succeeded\033[0m"
