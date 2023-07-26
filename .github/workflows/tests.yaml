@@ -40,7 +40,7 @@ jobs:
         uses: ./
         with:
           # should be latest, but it is not published yet
-          configuration: ./testing/configuration.yaml
+          soda_library_version: v1.0.4
           data_source: ${{ matrix.data_source }}
           checks: ${{ matrix.checks }}
       - name: Assert scan exit code

@@ -27,10 +27,10 @@ runs:
     # 0. Check if required inputs are set
     - name: Check required inputs 
       run: |
-        [[ "${{ inputs.soda_library_version }}" ]] || { echo -e "\033[31;1;4msoda_library_version is required\033[0m" ; exit 1; }
-        [[ "${{ inputs.data_source }}" ]] || { echo -e "\033[31;1;4mdata_source input is required\033[0m" ; exit 1; }
-        [[ "${{ inputs.configuration }}" ]] || { echo -e "\033[31;1;4mconfiguration input is required\033[0m" ; exit 1; }
-        [[ "${{ inputs.checks }}" ]] || { echo -e "\033[31;1;4mchecks input is required\033[0m" ; exit 1; }
+        [[ "${{ inputs.soda_library_version }}" ]] || { echo -e "\033[31;1;4mInput: 'soda_library_version' is required\033[0m" ; exit 1; }
+        [[ "${{ inputs.data_source }}" ]] || { echo -e "\033[31;1;4mInput: 'data_source input' is required\033[0m" ; exit 1; }
+        [[ "${{ inputs.configuration }}" ]] || { echo -e "\033[31;1;4mInput: 'configuration' input is required\033[0m" ; exit 1; }
+        [[ "${{ inputs.checks }}" ]] || { echo -e "\033[31;1;4mInput: 'checks' input is required\033[0m" ; exit 1; }
       shell: bash
 
     # 1. Build docker image with a specific soda-library version for the base image
