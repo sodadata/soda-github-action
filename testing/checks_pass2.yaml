@@ -1,2 +1,0 @@
-checks for check_results:
-  - row_count < 33333333333333
