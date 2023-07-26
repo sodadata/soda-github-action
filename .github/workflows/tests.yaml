@@ -21,7 +21,7 @@ jobs:
         include:
           - name: passing scan
             data_source: reporting_api__marts
-            checks: ./testing/checks_pass.yaml
+            checks: ./testing/checks_*.yaml
             expected_exit_code: 0
           - name: failing scan on check
             data_source: reporting_api__marts
@@ -29,7 +29,7 @@ jobs:
             expected_exit_code: 2
           - name: failing scan on error
             data_source: MISSING_DS
-            checks: ./testing/checks_*.yaml
+            checks: ./testing/checks_pass.yaml
             expected_exit_code: 1
     steps:
       - name: Checkout

@@ -1,0 +1,2 @@
+checks for check_results:
+  - row_count > 3
