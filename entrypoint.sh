@@ -6,8 +6,8 @@ echo $3
 echo $4
 soda scan \
   -d "$1" \
-  -c "/tmp/workspace/$2" \
-  "/tmp/workspace/$3" \
+  -c /tmp/workspace/$2 \
+  /tmp/workspace/$3 \
   -srf soda_scan_results_raw.json \
   --scan-type cicd \
   -cif soda_scan_ci_info.json
