@@ -2,7 +2,7 @@
 
 python3 /tmp/action_path/scripts/create_ci_info_json.py
 
-echo -e "\033[36;1m"
+echo -e "\e[1;31m"
 soda scan \
   -d "$1" \
   -c "/tmp/workspace/$2" \
