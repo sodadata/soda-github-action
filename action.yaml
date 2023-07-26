@@ -108,8 +108,8 @@ runs:
         -v ${{ github.workspace }}:/tmp/workspace \
         soda_action_${{ github.sha }} \
         ${{ inputs.data_source }} \
-        ${{ inputs.configuration }} \
-        ${{ inputs.checks }} || true
+        "${{ inputs.configuration }}" \
+        "${{ inputs.checks }}" || true
       shell: bash
 
     - name: Scan results link
