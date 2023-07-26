@@ -109,15 +109,14 @@ runs:
         soda_action_${{ github.sha }} \
         ${{ inputs.data_source }} \
         ${{ inputs.configuration }} \
-        ${{ inputs.checks }}
+        ${{ inputs.checks }} || true
       shell: bash
-      continue-on-error: true
 
     - name: Scan results link
       run: |
-        echo -e "\033[36;1m----------\033[0m"
+        echo -e "\033[36;1m-----------------------------\\033[0m"
         echo -e "\033[36;1m View the full scan results -> \033[0m ${{ env.SCAN_CLOUD_LINK }}"
-        echo -e "\033[36;1m----------\033[0m"
+        echo -e "\033[36;1m-----------------------------\\033[0m"
       shell: bash
 
     # 4. The soda-library scan results are converted to a markdown table
@@ -139,7 +138,7 @@ runs:
 
           ${{ steps.table.outputs.table }}
 
-          [View the full scan results](${{ env.SCAN_CLOUD_LINK }}){:target="_blank"}
+          [View the full scan results](${{ env.SCAN_CLOUD_LINK }})
 
     - name: Comment PR on failure with results
       uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
