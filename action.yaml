@@ -116,7 +116,7 @@ runs:
     - name: Scan results link
       run: |
         echo ""
-        echo -e "\033[36;1 View the full scan results -> \033[0m ${{ env.SCAN_CLOUD_LINK }}"
+        echo -e "\033[36;1m View the full scan results -> \033[0m ${{ env.SCAN_CLOUD_LINK }}"
         echo ""
       shell: bash
 
