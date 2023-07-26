@@ -171,4 +171,4 @@ runs:
       shell: bash
       if: env.SCAN_EXIT_CODE == 0
       run: |
-        echo -e "\32[31;1;4mSoda Scan succeeded\033[0m"
+        echo -e "\33[32;1;4mSoda Scan succeeded\033[0m"
