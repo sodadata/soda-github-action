@@ -116,7 +116,7 @@ runs:
     - name: Scan results link
       run: |
         echo ""
-        echo -e "\034[31;1;4mView the full scan results -> ${{ env.SCAN_CLOUD_LINK }}\033[0m"
+        echo -e "\033[31;1;4mView the full scan results -> ${{ env.SCAN_CLOUD_LINK }}\033[0m"
         echo ""
       shell: bash
 
@@ -143,7 +143,7 @@ runs:
 
     - name: Comment PR on failure with results
       uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
-      if: env.SCAN_EXIT_CODE == 1
+      if: env.SCAN_EXIT_CODE == 2
       with:
         message: |
           🔴 Soda scan completed with the following results:
@@ -154,7 +154,7 @@ runs:
 
     - name: Comment PR on fatal failure
       uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
-      if: env.SCAN_EXIT_CODE == 2 || env.SCAN_EXIT_CODE == 3
+      if: env.SCAN_EXIT_CODE == 1 || env.SCAN_EXIT_CODE == 3
       with:
         message: |
           🔴 Soda scan failed. Check logs for more details.
