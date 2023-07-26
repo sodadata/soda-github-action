@@ -2,6 +2,7 @@
 
 python3 /tmp/action_path/scripts/create_ci_info_json.py
 
+echo -e "\033[36;1m"
 soda scan \
   -d "$1" \
   -c "/tmp/workspace/$2" \
@@ -11,6 +12,8 @@ soda scan \
   -cif soda_scan_ci_info.json
 
 exit_status=$?
+
+echo -e "\033[0m"
 
 scan_cloud_link=$(python3 /tmp/action_path/scripts/reformat_json.py soda_scan_results_raw.json)
 

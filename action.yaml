@@ -115,9 +115,9 @@ runs:
     - name: Scan results link
       if: env.SCAN_EXIT_CODE == 0 || env.SCAN_EXIT_CODE == 2
       run: |
-        echo -e "\033[36;1m-----------------------------\\033[0m"
+        echo -e "\033[36;1m-----------------------------\033[0m"
         echo -e "\033[36;1m View the full scan results -> \033[0m ${{ env.SCAN_CLOUD_LINK }}"
-        echo -e "\033[36;1m-----------------------------\\033[0m"
+        echo -e "\033[36;1m-----------------------------\033[0m"
       shell: bash
 
     # 4. The soda-library scan results are converted to a markdown table
