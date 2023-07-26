@@ -6,9 +6,9 @@ import sys
 namespace = uuid.NAMESPACE_URL
 
 data = {
-    "repositoryName": os.getenv("GITHUB_REPOSITORY"),
-    "branchName": os.getenv("BRANCH_NAME"),
-    "authorName": os.getenv("GITHUB_ACTOR"),
+    "repository": os.getenv("GITHUB_REPOSITORY"),
+    "branch": os.getenv("BRANCH_NAME"),
+    "author": os.getenv("GITHUB_ACTOR"),
     "prTitle": os.getenv("PR_TITLE"),
     "prNumber": os.getenv("PR_NUMBER"),
     "prUrl": os.getenv("PR_URL"),
@@ -16,15 +16,15 @@ data = {
 
 # Generate a unique ID for this PR across whole Github
 if (
-    data["repositoryName"] is None
-    or data["branchName"] is None
+    data["repository"] is None
+    or data["branch"] is None
     or data["prNumber"] is None
 ):
     sys.exit(1)
 
 data["prIdentifier"] = str(
     uuid.uuid5(
-        namespace, data["repositoryName"] + data["branchName"] + data["prNumber"]
+        namespace, data["repository"] + data["branch"] + data["prNumber"]
     )
 )
 

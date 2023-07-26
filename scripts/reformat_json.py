@@ -15,15 +15,15 @@ try:
             "Number of checks": checksMetadata.get("notEvaluated"),
         },
         {
-            "State": "Passed",
+            "State": "Pass",
             "Number of checks": checksMetadata.get("pass"),
         },
         {
-            "State": "Warning",
+            "State": "Warn",
             "Number of checks": checksMetadata.get("warn"),
         },
         {
-            "State": "Failed",
+            "State": "Fail",
             "Number of checks": checksMetadata.get("fail"),
         },
     ]
