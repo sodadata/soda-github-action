@@ -1,7 +1,6 @@
 checks for check_results:
   - row_count > 0
   - duplicate_percent(level) < 32%
-  - row_count > 0
   - missing_count(level) = 0
 
 checks for checks:
