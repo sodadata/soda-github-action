@@ -14,3 +14,5 @@ data_source reporting_api__marts:
 
 soda_cloud:
   host: dev.sodadata.io
+  api_key_id: 222
+  api_key_secret: ${CLOUD_API_KEY_SECRET}
