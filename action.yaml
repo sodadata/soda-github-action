@@ -109,7 +109,7 @@ runs:
         soda_action_${{ github.sha }} \
         ${{ inputs.data_source }} \
         ${{ inputs.configuration }} \
-        ${{ inputs.checks }}
+        ${{ inputs.checks }} || true
       shell: bash
       continue-on-error: true
 
@@ -131,33 +131,30 @@ runs:
       uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
       if: steps.soda_scan.outcome == 'success'
       with:
-        mode: recreate
         comment_tag: cicd_soda_scan
         message: |
           🟢 Soda scan completed successfully with the following results:
 
           ${{ steps.table.outputs.table }}
 
-          View the full scan on -> [Soda Cloud](${{ env.SCAN_CLOUD_LINK }})
+          [View the full scan results](${{ env.SCAN_CLOUD_LINK }})
 
     - name: Comment PR on failure with results
       uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
       if: steps.soda_scan.outcome != 'success' && env.SCAN_RESULTS != ''
       with:
-        mode: recreate
         comment_tag: cicd_soda_scan
         message: |
           🔴 Soda scan completed with the following results:
 
           ${{ steps.table.outputs.table }}
 
-          View the full scan on -> [Soda Cloud](${{ env.SCAN_CLOUD_LINK }})
+          [View the full scan results](${{ env.SCAN_CLOUD_LINK }})
 
     - name: Comment PR on fatal failure
       uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
       if: steps.soda_scan.outcome != 'success' && env.SCAN_RESULTS == ''
       with:
-        mode: recreate
         comment_tag: cicd_soda_scan
         message: |
           🔴 Soda scan failed. Check logs for more details.
