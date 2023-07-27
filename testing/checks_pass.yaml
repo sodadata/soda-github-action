@@ -1,0 +1,13 @@
+checks for check_results:
+  - row_count > 0
+  - duplicate_percent(level) < 32%
+  - missing_count(level) = 0
+
+checks for checks:
+  - row_count > 0
+
+checks for datasets:
+  - row_count > 0
+
+checks for incidents:
+  - row_count > 0

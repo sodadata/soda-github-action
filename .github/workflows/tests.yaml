@@ -1,0 +1,54 @@
+# Running scans using latest library and the gh action on testing config and checks files.
+
+on: 
+  push:
+    branches:
+      - main
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  soda_scan_test:
+    runs-on: ubuntu-latest
+    name: Test ${{ matrix.name }}
+    env:
+      CLOUD_API_KEY_ID: ${{ secrets.CLOUD_API_KEY_ID }}
+      CLOUD_API_KEY_SECRET: ${{ secrets.CLOUD_API_KEY_SECRET }}
+      SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+      SNOWFLAKE_PASS: ${{ secrets.SNOWFLAKE_PASS }}
+    strategy:
+      matrix:
+        include:
+          - name: passing scan
+            data_source: reporting_api__marts
+            checks: ./testing/checks_p*.yaml
+            expected_exit_code: 0
+          - name: failing scan on check
+            data_source: reporting_api__marts
+            checks: ./testing/checks_fail_on_check.yaml
+            expected_exit_code: 2
+          - name: failing scan on error
+            data_source: MISSING_DS
+            checks: ./testing/checks_pass.yaml
+            expected_exit_code: 1
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      - name: Perform Soda Scan
+        id: soda_scan
+        continue-on-error: true
+        uses: ./
+        with:
+          # should be latest, but it is not published yet
+          soda_library_version: v1.0.4
+          configuration: ./testing/configuration.yaml
+          data_source: ${{ matrix.data_source }}
+          checks: ${{ matrix.checks }}
+      - name: Assert scan exit code
+        run: |
+          if [ "${{ env.SCAN_EXIT_CODE }}" == "${{ matrix.expected_exit_code }}" ]; then
+            echo "The Scan exited as expected."
+          else
+            echo "The Scan did not exit as expected."
+            exit 1
+          fi

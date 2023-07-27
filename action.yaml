@@ -1,0 +1,186 @@
+---
+name: 'Soda Library Github Action'
+description: 'GitHub action to run soda-library scan'
+branding:
+  icon: 'circle'
+  color: 'green'
+inputs:
+  soda_library_version:
+    description: 'Version of the Soda Library to run the scan on'
+    required: true
+
+  data_source:
+    description: 'Data Source name'
+    required: true
+
+  configuration:
+    description: 'Configuration file'
+    required: true
+
+  checks:
+    description: 'Checks file'
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    # 0. Check if required inputs are set
+    - name: Check required inputs 
+      run: |
+        [[ "${{ inputs.soda_library_version }}" ]] || { echo -e "\033[31;1;4m[Soda Library Github Action] Input: 'soda_library_version' is required\033[0m" ; exit 1; }
+        [[ "${{ inputs.data_source }}" ]] || { echo -e "\033[31;1;4m[Soda Library Github Action] Input: 'data_source' is required\033[0m" ; exit 1; }
+        [[ "${{ inputs.configuration }}" ]] || { echo -e "\033[31;1;4m[Soda Library Github Action] Input: 'configuration' is required\033[0m" ; exit 1; }
+        [[ "${{ inputs.checks }}" ]] || { echo -e "\033[31;1;4m[Soda Library Github Action] Input: 'checks' is required\033[0m" ; exit 1; }
+      shell: bash
+
+    # 1. Build docker image with a specific soda-library version for the base image
+    - name: Build the Docker image
+      run: |
+        docker build \
+        ${GITHUB_ACTION_PATH} \
+        --file ${GITHUB_ACTION_PATH}/Dockerfile \
+        -t soda_action_${{ github.sha }} \
+        --build-arg="SODA_LIBRARY_VERSION=${{ inputs.soda_library_version }}"
+      shell: bash
+
+    # 2. Need to expand the environment variables to pass to the docker run command
+    # as these variables can be configured in the workflow file and contain secrets etc.
+    - name: Expand environment variables
+      id: expand_envs
+      env:
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
+      run: |
+        env > .env_file
+      shell: bash
+
+    # 3. Run built image to trigger the actual scan
+    - name: Run your Docker Action
+      id: soda_scan
+      run: |
+        docker run \
+        --workdir ${GITHUB_ACTION_PATH} \
+        --env-file .env_file \
+        -e "HOME" \
+        -e "GITHUB_JOB" \
+        -e "GITHUB_REF" \
+        -e "GITHUB_SHA" \
+        -e "GITHUB_REPOSITORY" \
+        -e "GITHUB_REPOSITORY_OWNER" \
+        -e "GITHUB_REPOSITORY_OWNER_ID" \
+        -e "GITHUB_RUN_ID" \
+        -e "GITHUB_RUN_NUMBER" \
+        -e "GITHUB_RETENTION_DAYS" \
+        -e "GITHUB_RUN_ATTEMPT" \
+        -e "GITHUB_REPOSITORY_ID" \
+        -e "GITHUB_ACTOR_ID" \
+        -e "GITHUB_ACTOR" \
+        -e "GITHUB_TRIGGERING_ACTOR" \
+        -e "GITHUB_HEAD_REF" \
+        -e "GITHUB_BASE_REF" \
+        -e "GITHUB_EVENT_NAME" \
+        -e "GITHUB_SERVER_URL" \
+        -e "GITHUB_API_URL" \
+        -e "GITHUB_GRAPHQL_URL" \
+        -e "GITHUB_REF_NAME" \
+        -e "GITHUB_REF_PROTECTED" \
+        -e "GITHUB_REF_TYPE" \
+        -e "GITHUB_WORKFLOW_REF" \
+        -e "GITHUB_WORKFLOW_SHA" \
+        -e "GITHUB_WORKSPACE" \
+        -e "GITHUB_ACTION" \
+        -e "GITHUB_EVENT_PATH" \
+        -e "GITHUB_ACTION_REPOSITORY" \
+        -e "GITHUB_ACTION_REF" \
+        -e "GITHUB_PATH" \
+        -e "GITHUB_ENV" \
+        -e "GITHUB_STEP_SUMMARY" \
+        -e "GITHUB_STATE" \
+        -e "GITHUB_OUTPUT" \
+        -e "GITHUB_ACTION_PATH" \
+        -e "RUNNER_OS" \
+        -e "RUNNER_ARCH" \
+        -e "RUNNER_NAME" \
+        -e "RUNNER_TOOL_CACHE" \
+        -e "RUNNER_TEMP" \
+        -e "RUNNER_WORKSPACE" \
+        -e "ACTIONS_RUNTIME_URL" \
+        -e "ACTIONS_RUNTIME_TOKEN" \
+        -e "ACTIONS_CACHE_URL" \
+        -e GITHUB_ACTIONS=true \
+        -e CI=true \
+        --rm  \
+        -v ${{ github.env}}:${{ github.env}} \
+        -v ${GITHUB_ACTION_PATH}:/tmp/action_path \
+        -v ${{ github.workspace }}:/tmp/workspace \
+        soda_action_${{ github.sha }} \
+        ${{ inputs.data_source }} \
+        "${{ inputs.configuration }}" \
+        "${{ inputs.checks }}" || true
+      shell: bash
+
+    - name: Scan results link
+      if: env.SCAN_EXIT_CODE == 0 || env.SCAN_EXIT_CODE == 2
+      run: |
+        echo -e "\033[36;1m-----------------------------\033[0m"
+        echo -e "\033[36;1m View the full scan results -> \033[0m ${{ env.SCAN_CLOUD_LINK }}"
+        echo -e "\033[36;1m-----------------------------\033[0m"
+      shell: bash
+
+    # 4. The soda-library scan results are converted to a markdown table
+    # Using newest hash from 1.0.0 version.
+    - uses: buildingcash/json-to-markdown-table-action@ce128b72e0c93612c8f02b85e0672bcb16fd9bf9
+      id: table
+      if: ${{ env.SCAN_RESULTS }}
+      with:
+        json: ${{ env.SCAN_RESULTS }}
+
+    # 5. Create the PR comment
+    # Using newest hash from 2.4.0 version.
+    - name: Comment PR on success
+      uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
+      continue-on-error: true
+      if: env.SCAN_EXIT_CODE == 0
+      with:
+        message: |
+          🟢 Soda scan completed successfully with the following results:
+
+          ${{ steps.table.outputs.table }}
+
+          [View the full scan results](${{ env.SCAN_CLOUD_LINK }})
+
+    - name: Comment PR on failure with results
+      uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
+      continue-on-error: true
+      if: env.SCAN_EXIT_CODE == 2
+      with:
+        message: |
+          🔴 Soda scan completed with the following results:
+
+          ${{ steps.table.outputs.table }}
+
+          [View the full scan results](${{ env.SCAN_CLOUD_LINK }})
+
+    - name: Comment PR on fatal failure
+      uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
+      continue-on-error: true
+      if: env.SCAN_EXIT_CODE == 1 || env.SCAN_EXIT_CODE == 3
+      with:
+        message: |
+          🔴 Soda scan failed. Check logs for more details.
+
+
+    # 6. Post additional message to make it clear scan failed or not
+    - name: Fail Job if Soda Scan Failed
+      shell: bash
+      if: env.SCAN_EXIT_CODE != 0
+      run: |
+        echo -e "\033[31;1;4mSoda Scan failed\033[0m" && exit ${{ env.SCAN_EXIT_CODE }}
+
+    - name: Fail Job if Soda Scan Succeeded
+      shell: bash
+      if: env.SCAN_EXIT_CODE == 0
+      run: |
+        echo -e "\33[32;1;4mSoda Scan succeeded\033[0m"
