@@ -45,8 +45,6 @@ jobs:
           data_source: snowflake
           configuration: ./configuration.yaml
           checks: ./checks.yaml
-        permissions: 
-          pull-requests: write 
 ```
 Refer to [testing files](https://github.com/sodadata/soda-github-action/tree/main/testing) and the [test workflow](https://github.com/sodadata/soda-github-action/blob/main/.github/workflows/tests.yaml) for more context for the example.
 
@@ -58,16 +56,6 @@ Refer to [testing files](https://github.com/sodadata/soda-github-action/tree/mai
 | `data_source` | Name of data source on which to perform the scan. | ✅ | - |
 | `configuration` | File path to configuration YAML file. See [Soda docs](https://go.soda.io/configure). | ✅ | - |
 | `checks` | File path to checks YAML file. See [Soda docs](https://go.soda.io/configure). Compatible with shell filename extensions.<br /> Identify multiple check files, if you wish. For example: `./checks_*.yaml` or `./{check1.yaml,check2.yaml}` | ✅ | - |
-
-
-### Permissions
-The GitHub Action only creates comments for workflows run by a `pull_request` event.
-
-Because the Soda GitHub Action posts a comment to the PR with scan results, you must specify the workflow step's permission when using the action in a `pull_request` event.
-```yaml
-permissions: 
-   pull-requests: write 
-```
 
 
 ### Self-hosted runners
