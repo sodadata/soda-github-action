@@ -1,12 +1,12 @@
 ---
-name: 'Soda Library Github Action'
-description: 'GitHub action to run soda-library scan'
+name: 'Soda Library Action'
+description: 'Prevent downstream data quality issues by integrating the Soda Library into your CI/CD pipeline.'
 branding:
   icon: 'circle'
   color: 'green'
 inputs:
   soda_library_version:
-    description: 'Version of the Soda Library to run the scan on'
+    description: 'Version of the Soda Library on which to run the scan'
     required: true
 
   data_source:
@@ -18,7 +18,7 @@ inputs:
     required: true
 
   checks:
-    description: 'Checks file'
+    description: 'Checks file(s)'
     required: true
 
 runs:
@@ -57,7 +57,7 @@ runs:
       shell: bash
 
     # 3. Run built image to trigger the actual scan
-    - name: Run your Docker Action
+    - name: Run the docker with the scan
       id: soda_scan
       run: |
         docker run \
