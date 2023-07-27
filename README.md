@@ -2,6 +2,8 @@
 [![GitHub Super-Linter](https://github.com/sodadata/soda-github-action/actions/workflows/linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
 [![.github/workflows/tests.yaml](https://github.com/sodadata/soda-github-action/actions/workflows/tests.yaml/badge.svg)](https://github.com/sodadata/soda-github-action/actions/workflows/tests.yaml)
 
+Prevent downstream data quality issues by integrating the Soda Library into your CI/CD pipeline.
+
 ## Example usage
 
 ```yaml
@@ -28,16 +30,6 @@ Also refer to [testing files](https://github.com/sodadata/soda-github-action/tre
 | `data_source` | Data Source name to be used for the scan | ✅ | - |
 | `configuration` | Configuration file path. See [docs](https://docs.soda.io/soda-core/configuration.html) | ✅ | - |
 | `checks` | Checks file path. See [docs](https://docs.soda.io/soda-core/scan-core.html#anatomy-of-a-scan-command). Allows for using shell filename extensions. You can match multiple check files, for example: `checks: ./checks_*.yaml` or `checks: ./{check1.yaml,check2.yaml}` | ✅ | - |
-
-
-### Permissions
-When using the action in `pull_request` event, it is required to specify step's permissions as follows:
-```yaml
-permissions: 
-   pull-requests: write 
-```
-as the action posts a comment with the scan results to the PR.
-Note the comment is only created for workflows run by `pull_request` event.
 
 ### Self-hosted runners caveats
 When running this action on self-hosted runners, there are some additional caveats:
