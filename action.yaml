@@ -2,7 +2,7 @@
 name: 'Soda Library Action'
 description: 'Prevent downstream data quality issues by integrating the Soda Library into your CI/CD pipeline.'
 branding:
-  icon: 'circle'
+  icon: 'check-circle'
   color: 'green'
 inputs:
   soda_library_version:
