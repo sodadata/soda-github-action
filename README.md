@@ -2,11 +2,12 @@
 [![GitHub Super-Linter](https://github.com/sodadata/soda-github-action/actions/workflows/linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
 [![.github/workflows/tests.yaml](https://github.com/sodadata/soda-github-action/actions/workflows/tests.yaml/badge.svg)](https://github.com/sodadata/soda-github-action/actions/workflows/tests.yaml)
 
-**Soda** enables Data Engineers to test data for quality where and when they need to. It works by taking the data quality checks that you prepare and using them to run a scan of datasets in a data source. A scan is a CLI command which instructs Soda to prepare optimized SQL queries that execute data quality checks on your data source to find invalid, missing, or unexpected data. When checks fail, they surface bad-quality data and present check results that help you investigate and address quality issues.
+**Soda** enables Data Engineers to test data for quality where and when they need to. It works by taking the data quality checks that you prepare and using them to run a scan of datasets in a data source. 
+A scan is a CLI command which instructs Soda to prepare optimized SQL queries that execute data quality checks on your data source to find invalid, missing, or unexpected data. When checks fail, they surface bad-quality data and present check results that help you investigate and address quality issues.
 
 Add the **GitHub Action for Soda** to your GitHub Workflow to automatically execute scans for data quality during development.
 
-In a repo in which are adding a transformation or making changes to a dbt model, for example, you can add the Soda GitHub Action to your workflow so that with each new PR, or commit to an existing PR, it executes a Soda scan for data quality and presents the results of the scan in a comment in the pull request, and in a report in Soda Cloud.
+In a repository in which are adding a transformation or making changes to a dbt model, for example, you can add the Soda GitHub Action to your workflow so that with each new PR, or commit to an existing PR, it executes a Soda scan for data quality and presents the results of the scan in a comment in the pull request, and in a report in Soda Cloud.
 
 Where the scan results indicate an issue with data quality, Soda notifies you both in the PR comment, and by email so that you can investigate and address any issues before merging the PR into production.
 
@@ -69,7 +70,7 @@ permissions:
 ```
 
 
-### Self-hosted runners 
+### Self-hosted runners
 
 - Windows runners are not supported, including the use of official Windows-based images such as `windows-latest`.
 - MacOS runners require installation of Docker because `macos-latest` does not come with Docker pre-installed.
