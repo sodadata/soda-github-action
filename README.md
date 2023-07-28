@@ -18,17 +18,6 @@ Refer to [Soda documentation](https://docs.soda.io/soda/quick-start-dev.html) fo
 Add the action to your GitHub Workflow, as in the following example in the `Perform Soda Scan` step.
 
 ```yaml
-name: Scan for data quality
-
-on: pull_request
-jobs:
-  soda_scan:
-    runs-on: ubuntu-latest
-    name: Run Soda Scan
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v3
-
       - name: Perform Soda Scan
         uses: sodadata/soda-github-action@v1
         env:
