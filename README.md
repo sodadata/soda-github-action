@@ -29,10 +29,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      - uses: actions/setup-python@v1
-        with:
-          python-version: "3.8.x"
-
       - name: Perform Soda Scan
         uses: sodadata/soda-github-action@v1
         env:
