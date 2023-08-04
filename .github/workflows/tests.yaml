@@ -31,9 +31,13 @@ jobs:
             data_source: reporting_api__marts
             checks: ./testing/checks_fail.yaml
             expected_exit_code: 2
-          - name: scan with errors
-            data_source: MISSING_DS
+          - name: scan with errors (wrong checks)
+            data_source: reporting_api__marts
             checks: ./testing/checks_error.yaml
+            expected_exit_code: 3
+          - name: scan with errors (wrong data source)
+            data_source: MISSING_DS
+            checks: ./testing/checks_pass.yaml
             expected_exit_code: 3
     steps:
       - name: Checkout
