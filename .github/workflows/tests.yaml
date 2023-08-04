@@ -47,8 +47,7 @@ jobs:
         continue-on-error: true
         uses: ./
         with:
-          # should be latest, but it is not published yet
-          soda_library_version: v1.0.4
+          soda_library_version: v1.0.6
           configuration: ./testing/configuration.yaml
           data_source: ${{ matrix.data_source }}
           checks: ${{ matrix.checks }}
