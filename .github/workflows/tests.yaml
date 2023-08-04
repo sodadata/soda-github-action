@@ -35,10 +35,11 @@ jobs:
             data_source: reporting_api__marts
             checks: ./testing/checks_error.yaml
             expected_exit_code: 3
-          - name: scan with errors (wrong data source)
-            data_source: MISSING_DS
-            checks: ./testing/checks_pass.yaml
-            expected_exit_code: 3
+          # Disabled until https://github.com/sodadata/soda-library/pull/63 is merged and released
+          # - name: scan with errors (wrong data source)
+          #   data_source: MISSING_DS
+          #   checks: ./testing/checks_pass.yaml
+          #   expected_exit_code: 3
     steps:
       - name: Checkout
         uses: actions/checkout@v3
