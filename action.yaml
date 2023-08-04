@@ -122,7 +122,7 @@ runs:
       shell: bash
 
     - name: Scan results link
-      if: env.SCAN_EXIT_CODE == 0 || env.SCAN_EXIT_CODE == 2
+      if: env.SCAN_EXIT_CODE <= 2
       run: |
         echo -e "\033[36;1m-----------------------------\033[0m"
         echo -e "\033[36;1m View the full scan results -> \033[0m ${{ env.SCAN_CLOUD_LINK }}"
@@ -151,7 +151,19 @@ runs:
 
           [View the full scan results](${{ env.SCAN_CLOUD_LINK }})
 
-    - name: Comment PR on failure with results
+    - name: Comment PR on warning
+      uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
+      continue-on-error: true
+      if: env.SCAN_EXIT_CODE == 1
+      with:
+        message: |
+          🟠 Soda scan completed with the following results:
+
+          ${{ steps.table.outputs.table }}
+
+          [View the full scan results](${{ env.SCAN_CLOUD_LINK }})
+
+    - name: Comment PR on failure
       uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
       continue-on-error: true
       if: env.SCAN_EXIT_CODE == 2
@@ -163,23 +175,23 @@ runs:
 
           [View the full scan results](${{ env.SCAN_CLOUD_LINK }})
 
-    - name: Comment PR on fatal failure
+    - name: Comment PR on scan errors
       uses: thollander/actions-comment-pull-request@8c77f42bbcc27c832a3a5962c8f9a60e34b594f3
       continue-on-error: true
-      if: env.SCAN_EXIT_CODE == 1 || env.SCAN_EXIT_CODE == 3
+      if: env.SCAN_EXIT_CODE == 3
       with:
         message: |
-          🔴 Soda scan failed. Check logs for more details.
+          🔴 Soda scan failed. Check the logs for more details.
 
 
     # 6. Post additional message to make it clear scan failed or not
-    - name: Fail Job if Soda Scan Failed
+    - name: Fail job if Soda scan failed
       shell: bash
       if: env.SCAN_EXIT_CODE != 0
       run: |
         echo -e "\033[31;1;4mSoda Scan failed\033[0m" && exit ${{ env.SCAN_EXIT_CODE }}
 
-    - name: Fail Job if Soda Scan Succeeded
+    - name: Exit job if Soda scan succeeded
       shell: bash
       if: env.SCAN_EXIT_CODE == 0
       run: |
