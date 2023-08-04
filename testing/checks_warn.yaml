@@ -1,0 +1,3 @@
+checks for incidents:
+  - row_count:
+      warn: when > 0

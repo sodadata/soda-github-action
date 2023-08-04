@@ -3,3 +3,4 @@ soda_scan_results_raw.json
 *.DS_store
 .env_file
 testing/configuration_local.yaml
+.venv

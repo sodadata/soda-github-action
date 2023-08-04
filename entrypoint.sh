@@ -11,14 +11,8 @@ soda scan \
   --scan-type cicd \
   -cif soda_scan_ci_info.json
 
-exit_status=$?
+echo "SCAN_EXIT_CODE=$?" >> $GITHUB_ENV
+echo "SCAN_CLOUD_LINK=$(python3 /tmp/action_path/scripts/reformat_json.py soda_scan_results_raw.json)" >> $GITHUB_ENV
+echo "SCAN_RESULTS=$(cat soda_scan_results.json 2> /dev/null)" >> $GITHUB_ENV
 
-scan_cloud_link=$(python3 /tmp/action_path/scripts/reformat_json.py soda_scan_results_raw.json)
-
-{
-  echo "SCAN_RESULTS=$(cat soda_scan_results.json)"
-  echo "SCAN_EXIT_CODE=$exit_status"
-  echo "SCAN_CLOUD_LINK=$scan_cloud_link"
-} >> "$GITHUB_ENV"
-
-exit $exit_status
+exit 0
