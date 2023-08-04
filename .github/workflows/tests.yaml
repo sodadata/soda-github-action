@@ -23,14 +23,18 @@ jobs:
             data_source: reporting_api__marts
             checks: ./testing/checks_p*.yaml
             expected_exit_code: 0
-          - name: failing scan on check
+          - name: scan with check warnings
             data_source: reporting_api__marts
-            checks: ./testing/checks_fail_on_check.yaml
-            expected_exit_code: 2
-          - name: failing scan on error
-            data_source: MISSING_DS
-            checks: ./testing/checks_pass.yaml
+            checks: ./testing/checks_warn.yaml
             expected_exit_code: 1
+          - name: scan with check failures
+            data_source: reporting_api__marts
+            checks: ./testing/checks_fail.yaml
+            expected_exit_code: 2
+          - name: scan with errors
+            data_source: MISSING_DS
+            checks: ./testing/checks_error.yaml
+            expected_exit_code: 3
     steps:
       - name: Checkout
         uses: actions/checkout@v3
