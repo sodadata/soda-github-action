@@ -33,6 +33,9 @@ runs:
         [[ "${{ inputs.checks }}" ]] || { echo -e "\033[31;1;4m[Soda Library Github Action] Input: 'checks' is required\033[0m" ; exit 1; }
       shell: bash
 
+    - name: Dump context
+      uses: crazy-max/ghaction-dump-context@v2
+
     # 1. Build docker image with a specific soda-library version for the base image
     - name: Build the Docker image
       run: |
