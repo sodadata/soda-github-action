@@ -64,7 +64,7 @@ runs:
         BRANCH_NAME: ${{ github.ref_name }}
         PR_TITLE: ${{ github.event.head_commit.message }}
         PR_URL: ${{ github.event.head_commit.url }}
-        PR_NUMBER: '-'
+        PR_NUMBER: ${{ github.run_number }}
       run: echo "" 
       shell: bash
 
