@@ -14,6 +14,9 @@ data = {
     "prUrl": os.getenv("PR_URL"),
 }
 
+print("Creating soda_scan_ci_info.json file with the following data:")
+print(data)
+
 # Generate a unique ID for this PR across whole Github
 if (
     data["repositoryName"] is None
