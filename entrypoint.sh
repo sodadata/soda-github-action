@@ -2,6 +2,8 @@
 
 python3 /tmp/action_path/scripts/create_ci_info_json.py
 
+cat soda_scan_ci_info.json
+
 # shellcheck disable=SC2086
 soda scan \
   -d "$1" \
