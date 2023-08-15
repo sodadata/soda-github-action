@@ -51,10 +51,10 @@ runs:
     - name: Expand environment variables
       id: expand_envs
       env:
-          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+          BRANCH_NAME: ${{ github.event.pull_request.head.ref || github.ref_name }}
+          PR_TITLE: ${{ github.event.pull_request.title || github.event.head_commit.message }}
+          PR_URL: ${{ github.event.pull_request.html_url || github.event.head_commit.url }}
+          PR_NUMBER: ${{ github.event.pull_request.number || "-" }}
       run: |
         env > .env_file
       shell: bash
