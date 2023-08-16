@@ -61,7 +61,7 @@ runs:
       env:
         BRANCH_NAME: ${{ github.ref_name }}
         PR_TITLE: ${{ github.event.head_commit.message }}
-        PR_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}/job/${{ github.job_id }}
+        PR_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
         PR_NUMBER: false
       run: |
         env > .env_file
