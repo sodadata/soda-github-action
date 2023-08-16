@@ -45,13 +45,24 @@ runs:
 
     # 2. Need to expand the environment variables to pass to the docker run command
     # as these variables can be configured in the workflow file and contain secrets etc.
-    - name: Expand environment variables
-      id: expand_envs
+    - name: Set job related envs for PR
+      if: ${{ github.event_name == 'pull_request' }} 
       env:
-          BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
-          PR_TITLE: ${{ github.event.pull_request.title }}
-          PR_URL: ${{ github.event.pull_request.html_url }}
-          PR_NUMBER: ${{ github.event.pull_request.number }}
+        BRANCH_NAME: ${{ github.event.pull_request.head.ref }}
+        PR_TITLE: ${{ github.event.pull_request.title }}
+        PR_URL: ${{ github.event.pull_request.html_url }}
+        PR_NUMBER: ${{ github.event.pull_request.number }}
+      run: |
+        env > .env_file
+      shell: bash
+
+    - name: Set job related envs for non-PR
+      if: ${{ github.event_name != 'pull_request' }} 
+      env:
+        BRANCH_NAME: ${{ github.ref_name }}
+        PR_TITLE: ${{ github.event.head_commit.message }}
+        PR_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+        PR_NUMBER: false
       run: |
         env > .env_file
       shell: bash
