@@ -1,0 +1,14 @@
+data_source smaller_breakdowns:
+  type: postgres
+  connection:
+    host: ${POSTGRES_HOST}
+    port: 5432
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASS}
+    database: postgres
+    schema: new_york
+
+soda_cloud:
+  host: dev.sodadata.io
+  api_key_id: ${CLOUD_API_KEY_ID}
+  api_key_secret: ${CLOUD_API_KEY_SECRET}
