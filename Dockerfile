@@ -3,8 +3,6 @@
 ARG SODA_LIBRARY_VERSION=latest
 FROM sodadata/soda-library:$SODA_LIBRARY_VERSION
 
-RUN apt-get update && apt-get install -y lsof
-
 COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
