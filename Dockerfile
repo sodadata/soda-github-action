@@ -9,6 +9,4 @@ COPY entrypoint.sh /entrypoint.sh
 
 RUN chmod +x /entrypoint.sh
 
-RUN sudo lsof -i :8126
-
 ENTRYPOINT ["/entrypoint.sh"]
