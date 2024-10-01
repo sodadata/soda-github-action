@@ -123,6 +123,8 @@ runs:
         -e GITHUB_ACTIONS=true \
         -e CI=true \
         --network host \
+        --cpus="0.25" \
+        --memory="750m" \
         --rm  \
         -v ${{ github.env}}:${{ github.env}} \
         -v ${GITHUB_ACTION_PATH}:/tmp/action_path \
