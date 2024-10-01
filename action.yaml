@@ -122,6 +122,7 @@ runs:
         -e "ACTIONS_CACHE_URL" \
         -e GITHUB_ACTIONS=true \
         -e CI=true \
+        -p 8126:8126 \
         --rm  \
         -v ${{ github.env}}:${{ github.env}} \
         -v ${GITHUB_ACTION_PATH}:/tmp/action_path \
