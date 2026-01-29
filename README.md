@@ -1,12 +1,10 @@
 # Soda GitHub Action
-[![GitHub Super-Linter](https://github.com/sodadata/soda-github-action/actions/workflows/linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
-[![.github/workflows/tests.yaml](https://github.com/sodadata/soda-github-action/actions/workflows/tests.yaml/badge.svg)](https://github.com/sodadata/soda-github-action/actions/workflows/tests.yaml)
 
 
 ---
 
-# !! DEPRECATED !!
-This Github action which is built on Soda Core v3 (SodaCL) is now deprecated.
+# DEPRECATED
+This Github action which is built on Soda Core v3 (SodaCL) **is now deprecated**.
 
 [A new version of Soda Core v4 is released](https://www.soda.io/blog/introducing-soda-4.0?utm_source=documentation&utm_medium=cloud_docs&utm_campaign=soda_v4_release&utm_content=announcement_banner)  (which introduces Soda Contract Language for Data Contracts)
 
