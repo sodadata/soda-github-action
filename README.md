@@ -2,6 +2,18 @@
 [![GitHub Super-Linter](https://github.com/sodadata/soda-github-action/actions/workflows/linter.yml/badge.svg)](https://github.com/marketplace/actions/super-linter)
 [![.github/workflows/tests.yaml](https://github.com/sodadata/soda-github-action/actions/workflows/tests.yaml/badge.svg)](https://github.com/sodadata/soda-github-action/actions/workflows/tests.yaml)
 
+
+---
+
+# !! DEPRECATED !!
+This Github action which is built on Soda Core v3 (SodaCL) is now deprecated.
+
+[A new version of Soda Core v4 is released](https://www.soda.io/blog/introducing-soda-4.0?utm_source=documentation&utm_medium=cloud_docs&utm_campaign=soda_v4_release&utm_content=announcement_banner)  (which introduces Soda Contract Language for Data Contracts)
+
+Follow https://docs.soda.io/integrations/github guide for how to integrate Soda Core v4 into CI.
+
+---
+
 **Soda** enables Data Engineers to test data for quality where and when they need to. It works by taking the data quality checks that you prepare and using them to run a scan of datasets in a data source.
 
 A scan is a CLI command which instructs Soda to prepare optimized SQL queries that execute data quality checks on your data source to find invalid, missing, or unexpected data. When checks fail, they surface bad-quality data and present check results that help you investigate and address quality issues.
